@@ -902,7 +902,6 @@ public final class TextureGraphEditorPanel extends JPanel implements MouseListen
 		int wsY = (int)((e.getY())*zoom) - desktopY;
 		
 		
-		Logger.log(this, "press button: " +e.getButton());
 		
 		// left button is 1.
 		// middle button is 2.
