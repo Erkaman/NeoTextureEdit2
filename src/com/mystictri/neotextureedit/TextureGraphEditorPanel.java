@@ -892,11 +892,17 @@ public final class TextureGraphEditorPanel extends JPanel implements MouseListen
 	public void mousePressed(MouseEvent e) {
 		mousePosition.x = (int)(e.getX()*zoom);
 		mousePosition.y = (int)(e.getY()*zoom);
-		
 		dragStartX = (int)(e.getXOnScreen()*zoom);
 		dragStartY = (int)(e.getYOnScreen()*zoom);
 		int wsX = (int)((e.getX())*zoom) - desktopX;
 		int wsY = (int)((e.getY())*zoom) - desktopY;
+		
+		
+		Logger.log(this, "press button: " +e.getButton());
+		
+		// left button is 1.
+		// middle button is 2.
+		// right button is 3. 
 		
 		if (e.getButton() == 2 || (e.isControlDown())) { // Desktop Dragging
 			desktopDragging = true;
@@ -914,6 +920,7 @@ public final class TextureGraphEditorPanel extends JPanel implements MouseListen
 					showSelectedChannelPopupMenu(node, e.getX(), e.getY());
 				} else { // if it was not a popup we look if we clicked on a connection point or on the rest of the node
 					int actionType = getActionTypeForMouseClick(wsX, wsY, node);
+					Logger.log(this, "actionType: " +actionType);
 					if (e.isShiftDown()) { // add to selection of nodes
 						addSelectedNode(node);
 					} else if (actionType == 1) { // want to drag the position of the node
