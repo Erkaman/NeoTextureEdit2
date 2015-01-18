@@ -1,107 +1,20 @@
-NeoTextureEdit.
+NeoTextureEdit2
 ===============
 
-http://neotextureedit.sourceforge.net/
+This project is a fork of the NeoTextureEdit project, which has seemingly been abandonen/forgotten by its creators.
+NeoTextureEdit2 is an attempt to improve NeoTextureEdit. Currently, the only improvement that has been
+implementeed thus far is:
 
-NeoTextureEdit is an easy to use graph-based procedural seamless
-texture editor. Using continuous basis functions it can generate
-arbitrary resolution images without quality degradation. Its main
-purpose is to produce high quality textures for real time rendering
-applications that can be stored in a few kB and synthesized on
-application startup. But it can also be used to generate off-line
-images.
-
-The most current version as well as the sourcecode can be found
-at the sourceforge project page:
-http://sourceforge.net/projects/neotextureedit/
-
-
-NeoTexture Library.
-===================
-
-The NeoTexture Library can be used to load a texture graph generated
-by NeoTextureEdit and create the according textures at runtime.
-
-
-License.
-========
-
-NeoTextureEdit and the runtime generation library NeoTexture are
-licensed under the GNU LGPL v.3. See the files COPYING and 
-COPYING.LESSER for details. 
-
-
-Dependencies.
-=============
-
-NeoTextureEdit needs a Java 1.6 compliant runtime environment.  For
-OpenGL preview rendering a graphics card with shader support is
-needed.
-
-
-Notes.
-======
-
-To learn the usage of the editor you can look at the provided example
-textures in the examples directory.
-
-NeoTextureEdit saves its settings on exit in a file called
-'TextureEdtiorSettings'.  This file will be saved in the directory
-from where you start the editor.  This file also contains your pattern
-presets. Deleting this file resets to the factory settings.
+- Instead of using JFileChooser for choosing files, FileDialog is now used instead. Because quite frankly,
+JFileChooser is fucking terrible to use. 
 
 
 
-Running NeoTextureEdit:
-=======================
+How to use the program
+===============
 
-Linux: Use the provided shell script in the main directory to run
-       NeoTextureEdit.
+In the OpenGL preview pane(the bottommost panel), you can zoom in and out by holding in the shift key and the left mouse button and then moving around the mouse.
 
-Windows: Use the provided executable to start.
-
-MacOS: The application can be started via double-click in the finder.
-
-
-Release Notes:
-==============
-
-0.6.4:
- - Spectral Control Widget for Noise Bands
- - Two new filter added: Math1 and Modulus
- - OSX Improvements
- - Texture Node Folding
- - Directional Blur option in Blur filter
-
-0.6.3:
- - Blur filter added
-
-0.6.2:
- - Improved Node Preview (with arbitrary Zoom)
- - Transform now only in Patterns and extra Transform Filter
- - Gamma and Desaturation in Color Correction Filter
- - Combine Filter to select arbitrary RGBA channels
- - small UI Improvements (Selection of multiple nodes and nicer rendering)
- - Cache System Rewrite
-
-0.6.1.1:
- - pattern brick bug fix
- 
-0.6.1:
- - license change to GNU LGPL v.3
- - external run time generation library now available
- - changed the texture graph file format slightly
- - Export String (with replace options %f %r) for marking channels for export
- - Command Line option for export to image (now batch export possible; also with wildcards)
- - SCM changed from svn to git on sourceforge
- 
-0.5.3:
- - New Pattern: Bitmap: allows to load images as generator patterns
- - New Pattern: Function: basic sin/saw/square function as generator pattern
- - Command line options for loading texture graph files and disabling OpenGL
- - Switched to LWJGL 2.3
- - several minor fixes/tweaks: among others are new presets, auto-loading 
-   of example at first start; switched to system UI instead of nimbus for
-   now
-
-   
+In the Texture Graph panel(the centremost panel), you can move around by holding the middle mouse button and 
+moving the mouse. If you are using a laptop and don't have a middle mouse button, you can instead hold down
+the control key and the left mouse button, and then move around the mouse. 
