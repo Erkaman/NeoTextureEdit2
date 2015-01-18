@@ -87,9 +87,9 @@ import engine.graphics.synthesis.texture.ProgressBarInterface;
 /**
  * This is the main window of NeoTextureEdit. It is more or less a singelton
  * class that manages all components in the editor.
- * 
+ *
  * @author Holger Dammertz
- * 
+ *
  */
 public class TextureEditor implements ActionListener, KeyListener {
 	private static final long serialVersionUID = -5567955539436014517L;
@@ -233,9 +233,9 @@ public class TextureEditor implements ActionListener, KeyListener {
 	/**
 	 * This is the graphical representation of a Pattern Preset in the
 	 * PatternSelectorPanel
-	 * 
+	 *
 	 * @author Holger Dammertz
-	 * 
+	 *
 	 */
 	static class PatternPresetLabel extends JLabel {
 		private static final long serialVersionUID = -6943441006941948327L;
@@ -260,9 +260,9 @@ public class TextureEditor implements ActionListener, KeyListener {
 
 	/**
 	 * This panel is used to show, select and delete the presets of Patterns.
-	 * 
+	 *
 	 * @author Holger Dammertz
-	 * 
+	 *
 	 */
 	class PatternSelectorPanel extends JPanel implements ActionListener, MouseListener {
 		private static final long serialVersionUID = 5732720988651708823L;
@@ -354,7 +354,7 @@ public class TextureEditor implements ActionListener, KeyListener {
 
 		/**
 		 * Adds a given Pattern p to the list of presets
-		 * 
+		 *
 		 * @param p
 		 */
 		public void addPatternPreset(Pattern p) {
@@ -386,7 +386,7 @@ public class TextureEditor implements ActionListener, KeyListener {
 
 		/**
 		 * Deletes a given preset from the list of presets.
-		 * 
+		 *
 		 * @param p
 		 */
 		public void removePatternPreset(PatternPresetLabel p) {
@@ -443,9 +443,9 @@ public class TextureEditor implements ActionListener, KeyListener {
 
 	/**
 	 * This is the file selection filter used in the open/save dialogs.
-	 * 
+	 *
 	 * @author Holger Dammertz
-	 * 
+	 *
 	 */
 	static class TextureEditorFilenameFilter extends FileFilter {
 		private String m_Extensions;
@@ -985,7 +985,7 @@ public class TextureEditor implements ActionListener, KeyListener {
 		UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Monospaced", Font.PLAIN, 12)));
 
 		// !!TODO: move the libs into the native directory?
-		System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "/lib/lwjgl-2.9.1/native");
+		System.setProperty("org.lwjgl.librarypath", System.getProperty("user.dir") + "/lib/lwjgl-2.9.2/native");
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -1029,7 +1029,7 @@ public class TextureEditor implements ActionListener, KeyListener {
 	/**
 	 * Creates and caches a procedural ImageIcon representing the RGB channel of
 	 * an image.
-	 * 
+	 *
 	 * @return the generated or cached ImageIcon
 	 */
 	public ImageIcon Get_IconRGB() {
@@ -1050,7 +1050,7 @@ public class TextureEditor implements ActionListener, KeyListener {
 	/**
 	 * Creates and caches a procedural ImageIcon representing the RGBA channel
 	 * of an image.
-	 * 
+	 *
 	 * @return the generated or cached ImageIcon
 	 */
 	public ImageIcon Get_IconRGBA() {
@@ -1085,7 +1085,7 @@ public class TextureEditor implements ActionListener, KeyListener {
 	/**
 	 * Creates and caches a procedural ImageIcon representing the alpha channel
 	 * of an image.
-	 * 
+	 *
 	 * @return the generated or cached ImageIcon
 	 */
 	public ImageIcon Get_IconA() {
