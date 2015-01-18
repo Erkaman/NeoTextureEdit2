@@ -21,6 +21,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -335,9 +336,12 @@ public final class TextureGraphEditorPanel extends JPanel implements MouseListen
 	
 	
 	private void askFileAndExportTexture(int resX, int resY) {
-		TextureEditor.INSTANCE.m_TextureFileChooser_SaveLoadImage.setDialogTitle("Export Texture to " + resX + "x" + resY + " Image...");
-		if (TextureEditor.INSTANCE.m_TextureFileChooser_SaveLoadImage.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-			String name = TextureEditor.INSTANCE.m_TextureFileChooser_SaveLoadImage.getSelectedFile().getAbsolutePath();
+		TextureEditor.INSTANCE.m_TextureFileChooser_SaveLoadImage.setTitle("Export Texture to " + resX + "x" + resY + " Image...");
+		
+		TextureEditor.INSTANCE.m_TextureFileChooser_SaveLoadImage.setMode(FileDialog.SAVE);
+		TextureEditor.INSTANCE.m_TextureFileChooser_SaveLoadImage.setVisible(true);
+		if (TextureEditor.INSTANCE.m_TextureFileChooser_SaveLoadImage.getFile() != null) {
+			String name = TextureEditor.getFullPath(TextureEditor.INSTANCE.m_TextureFileChooser_SaveLoadImage);
 			if (!name.endsWith(".png"))
 				name += ".png";
 			boolean useCache = ChannelUtils.useCache;

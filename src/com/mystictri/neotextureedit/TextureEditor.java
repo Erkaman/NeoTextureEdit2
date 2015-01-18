@@ -21,7 +21,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -40,6 +42,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Properties;
@@ -157,8 +160,12 @@ public class TextureEditor implements ActionListener, KeyListener {
 	Vector<Class<?>> allChannels = new Vector<Class<?>>();
 
 	ColorChooserDialog m_ColorChooser;
-	JFileChooser m_TextureFileChooser_SaveLoadGraph;
+	/*JFileChooser m_TextureFileChooser_SaveLoadGraph;
 	JFileChooser m_TextureFileChooser_SaveLoadImage;
+*/
+	FileDialog m_TextureFileChooser_SaveLoadGraph;
+	FileDialog m_TextureFileChooser_SaveLoadImage;
+	
 	ProgressDialog m_ProgressDialog;
 
 	String title = "NeoTextureEdit - Version " + programVersionNumber;
@@ -447,7 +454,7 @@ public class TextureEditor implements ActionListener, KeyListener {
 	 * @author Holger Dammertz
 	 *
 	 */
-	static class TextureEditorFilenameFilter extends FileFilter {
+	static class TextureEditorFilenameFilter implements FilenameFilter {
 		private String m_Extensions;
 		private String m_Description;
 
@@ -455,6 +462,8 @@ public class TextureEditor implements ActionListener, KeyListener {
 			m_Extensions = extensions.toLowerCase();
 			m_Description = description;
 		}
+		
+		
 
 		public boolean accept(File f) {
 			if (f.isDirectory()) {
@@ -487,6 +496,12 @@ public class TextureEditor implements ActionListener, KeyListener {
 		// The description of this filter
 		public String getDescription() {
 			return m_Description;
+		}
+
+		@Override
+		public boolean accept(File dir, String name) {
+			return accept(new File(dir, name));
+		
 		}
 	}
 
@@ -646,6 +661,15 @@ public class TextureEditor implements ActionListener, KeyListener {
 		if (m_MainFrame != null)
 			m_MainFrame.setTitle(title);
 	}
+	
+	public static String getFullPath(FileDialog fd) {
+		
+		String dir = fd.getDirectory();
+		String file = fd.getFile();
+		
+		File d = new File(dir);
+		return new File(d, file).getAbsolutePath();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -656,25 +680,32 @@ public class TextureEditor implements ActionListener, KeyListener {
 				m_OpenGLPreviewPanel.resetPreview();
 			setCurrentFileName(null);
 		} else if (c.equals("file_open")) {
-			m_TextureFileChooser_SaveLoadGraph.setDialogTitle("Loading texture graph from ...");
-			if (m_TextureFileChooser_SaveLoadGraph.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-				String name = m_TextureFileChooser_SaveLoadGraph.getSelectedFile().getAbsolutePath();
+			m_TextureFileChooser_SaveLoadGraph.setTitle("Loading texture graph from ...");
+			
+			m_TextureFileChooser_SaveLoadGraph.setVisible(true);
+			if (m_TextureFileChooser_SaveLoadGraph.getFile() != null) {
+				String name = getFullPath(m_TextureFileChooser_SaveLoadGraph);
 				m_GraphDrawPanel.load(name, true);
 				setCurrentFileName(name);
 			}
 		} else if (c.equals("file_import")) {
-			m_TextureFileChooser_SaveLoadGraph.setDialogTitle("Import (append) texture graph from ...");
-			if (m_TextureFileChooser_SaveLoadGraph.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-				String name = m_TextureFileChooser_SaveLoadGraph.getSelectedFile().getAbsolutePath();
+			m_TextureFileChooser_SaveLoadGraph.setTitle("Import (append) texture graph from ...");
+			
+			m_TextureFileChooser_SaveLoadGraph.setVisible(true);
+			if (m_TextureFileChooser_SaveLoadGraph.getFile() != null) {
+				String name = getFullPath(m_TextureFileChooser_SaveLoadGraph);
 				m_GraphDrawPanel.load(name, false);
 			}
 		} else if (c.equals("file_save")) {
 			if (m_CurrentFile != null)
 				m_GraphDrawPanel.save(m_CurrentFile.getAbsolutePath());
 		} else if (c.equals("file_saveas")) {
-			m_TextureFileChooser_SaveLoadGraph.setDialogTitle("Saving texture graph as ...");
-			if (m_TextureFileChooser_SaveLoadGraph.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-				String name = m_TextureFileChooser_SaveLoadGraph.getSelectedFile().getAbsolutePath();
+			
+			m_TextureFileChooser_SaveLoadGraph.setMode(FileDialog.SAVE);
+			m_TextureFileChooser_SaveLoadGraph.setTitle("Saving texture graph as ...");
+			m_TextureFileChooser_SaveLoadGraph.setVisible(true);
+			if (m_TextureFileChooser_SaveLoadGraph.getFile() != null) {
+				String name = getFullPath(m_TextureFileChooser_SaveLoadGraph);
 				if (!name.endsWith(".tgr"))
 					name += ".tgr";
 				m_GraphDrawPanel.save(name);
@@ -899,11 +930,12 @@ public class TextureEditor implements ActionListener, KeyListener {
 
 		GradientEditorPanel.colorChooser = m_ColorChooser;
 
-		m_TextureFileChooser_SaveLoadGraph = new JFileChooser(".");
-		m_TextureFileChooser_SaveLoadGraph.addChoosableFileFilter(new TextureEditorFilenameFilter("tgr", "Texture Graph Files (.tgr)"));
+		
+		m_TextureFileChooser_SaveLoadGraph = new FileDialog((Frame)null, "no title specified");
+		m_TextureFileChooser_SaveLoadGraph.setFilenameFilter(new TextureEditorFilenameFilter("tgr", "Texture Graph Files (.tgr)"));
 
-		m_TextureFileChooser_SaveLoadImage = new JFileChooser(".");
-		m_TextureFileChooser_SaveLoadImage.addChoosableFileFilter(new TextureEditorFilenameFilter("png", "Image Files (.png)"));
+		m_TextureFileChooser_SaveLoadImage = new FileDialog((Frame)null, "no title specified");
+		m_TextureFileChooser_SaveLoadImage.setFilenameFilter(new TextureEditorFilenameFilter("png", "Image Files (.png)"));
 
 	}
 
@@ -933,12 +965,11 @@ public class TextureEditor implements ActionListener, KeyListener {
 		preferences.putInt("m_ColorChooser.PosY", m_ColorChooser.getY());
 		preferences.putInt("m_TextureFileChooser_SaveLoadImage.PosX", m_TextureFileChooser_SaveLoadImage.getX());
 		preferences.putInt("m_TextureFileChooser_SaveLoadImage.PosY", m_TextureFileChooser_SaveLoadImage.getY());
-		preferences.put("m_TextureFileChooser_SaveLoadImage.directory", m_TextureFileChooser_SaveLoadImage.getCurrentDirectory()
-				.getAbsolutePath());
+		
+		preferences.put("m_TextureFileChooser_SaveLoadImage.directory", m_TextureFileChooser_SaveLoadImage.getDirectory());
 		preferences.putInt("m_TextureFileChooser_SaveLoadGraph.PosX", m_TextureFileChooser_SaveLoadGraph.getX());
 		preferences.putInt("m_TextureFileChooser_SaveLoadGraph.PosY", m_TextureFileChooser_SaveLoadGraph.getY());
-		preferences.put("m_TextureFileChooser_SaveLoadGraph.directory", m_TextureFileChooser_SaveLoadGraph.getCurrentDirectory()
-				.getAbsolutePath());
+		preferences.put("m_TextureFileChooser_SaveLoadGraph.directory", m_TextureFileChooser_SaveLoadGraph.getDirectory());
 
 		preferences.put("m_CurrentFileName", m_CurrentFile.getAbsolutePath());
 	}
@@ -954,11 +985,11 @@ public class TextureEditor implements ActionListener, KeyListener {
 		m_ColorChooser.setLocation(preferences.getInt("m_ColorChooser.PosX", 0), preferences.getInt("m_ColorChooser.PosY", 0));
 		m_TextureFileChooser_SaveLoadImage.setLocation(preferences.getInt("m_TextureFileChooser_SaveLoadImage.PosX", 0),
 				preferences.getInt("m_TextureFileChooser_SaveLoadImage.PosY", 0));
-		m_TextureFileChooser_SaveLoadImage.setCurrentDirectory(new File(preferences.get("m_TextureFileChooser_SaveLoadImage.directory", ".")));
+		m_TextureFileChooser_SaveLoadImage.setDirectory(new File(preferences.get("m_TextureFileChooser_SaveLoadImage.directory", ".")).getAbsolutePath());
 
 		m_TextureFileChooser_SaveLoadGraph.setLocation(preferences.getInt("m_TextureFileChooser_SaveLoadGraph.PosX", 0),
 				preferences.getInt("m_TextureFileChooser_SaveLoadGraph.PosY", 0));
-		m_TextureFileChooser_SaveLoadGraph.setCurrentDirectory(new File(preferences.get("m_TextureFileChooser_SaveLoadGraph.directory", ".")));
+		m_TextureFileChooser_SaveLoadGraph.setDirectory(new File(preferences.get("m_TextureFileChooser_SaveLoadGraph.directory", ".")).getAbsolutePath());
 
 		if (cmdLine_fileNameToLoad != null) {
 			setCurrentFileName(cmdLine_fileNameToLoad);

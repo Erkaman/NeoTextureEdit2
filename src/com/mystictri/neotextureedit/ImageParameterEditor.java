@@ -17,6 +17,7 @@
 
 package com.mystictri.neotextureedit;
 
+import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -86,10 +87,11 @@ public class ImageParameterEditor extends AbstractParameterEditor implements
 	public void actionPerformed(ActionEvent e) {
 		// checkAndApplyChange();
 		if (e.getSource() == loadButton) {
-		JFileChooser c = TextureEditor.INSTANCE.m_TextureFileChooser_SaveLoadImage;
-		c.setDialogTitle("Open image ...");
-		if (c.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-			String name = c.getSelectedFile().getAbsolutePath();
+		FileDialog c = TextureEditor.INSTANCE.m_TextureFileChooser_SaveLoadImage;
+		c.setTitle("Open image ...");
+		c.setVisible(true);
+		if (c.getFile() != null) {
+			String name = TextureEditor.getFullPath(c);
 			setFileName(name);
 		}
 		} else if (e.getSource() == reloadButton) {
