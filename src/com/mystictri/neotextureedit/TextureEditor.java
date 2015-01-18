@@ -682,6 +682,7 @@ public class TextureEditor implements ActionListener, KeyListener {
 		} else if (c.equals("file_open")) {
 			m_TextureFileChooser_SaveLoadGraph.setTitle("Loading texture graph from ...");
 			
+			m_TextureFileChooser_SaveLoadGraph.setMode(FileDialog.LOAD);
 			m_TextureFileChooser_SaveLoadGraph.setVisible(true);
 			if (m_TextureFileChooser_SaveLoadGraph.getFile() != null) {
 				String name = getFullPath(m_TextureFileChooser_SaveLoadGraph);
@@ -690,6 +691,9 @@ public class TextureEditor implements ActionListener, KeyListener {
 			}
 		} else if (c.equals("file_import")) {
 			m_TextureFileChooser_SaveLoadGraph.setTitle("Import (append) texture graph from ...");
+		
+			m_TextureFileChooser_SaveLoadGraph.setMode(FileDialog.LOAD);
+			
 			
 			m_TextureFileChooser_SaveLoadGraph.setVisible(true);
 			if (m_TextureFileChooser_SaveLoadGraph.getFile() != null) {

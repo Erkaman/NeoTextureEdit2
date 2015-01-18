@@ -152,6 +152,50 @@ public class OpenGLPreviewPanel extends JPanel implements ChannelChangeListener,
 		int x = 0;
 		int y = 8;
 		
+	/*
+	 *  TODO: HERE YOU CAN ADD A BUTTON MOTHERFUCKER
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 *  
+	 */
 		int oldNameWidth = AbstractParameterEditor.NAME_WIDTH;
 		AbstractParameterEditor.NAME_WIDTH = 128;
 		for (AbstractParam param : glcanvas.params.m_LocalParameters) {
