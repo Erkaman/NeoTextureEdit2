@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="NeoTextureEdit" basedir="." default="jar">
 	<property name="src" value="src" />
-	<property name="lwjgl.dir" value="lib/lwjgl-2.9.2/jar" />
+	<property name="lwjgl.dir" value="jar" />
 	<property name="output" value="ant_bin" />
 
 	<path id="project.classpath">

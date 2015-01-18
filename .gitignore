@@ -3,3 +3,4 @@
 .project
 examples/
 ant_bin/
+*.jar
