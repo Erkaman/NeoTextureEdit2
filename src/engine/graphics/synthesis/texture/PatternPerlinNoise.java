@@ -17,6 +17,7 @@
 
 package engine.graphics.synthesis.texture;
 
+import engine.base.Logger;
 import engine.base.Vector3;
 import engine.base.Vector4;
 import engine.parameters.AbstractParam;
@@ -28,8 +29,6 @@ import engine.parameters.SpectralControlParam;
 
 public final class PatternPerlinNoise extends Pattern {
 
-	
-	
 	public String getName() {
 		return "Perlin Noise";
 	}
@@ -76,12 +75,17 @@ public final class PatternPerlinNoise extends Pattern {
 			spectralControl.setSilent(true); // needed to avoid multiple recomputations of the noise
 			if (spectralControl.getEndBand() != endBand.get() || source == persistence) {
 				float mult = 1.0f;
+				
+				
+				
+				/*
 				for (int i = startBand.get(); i <= endBand.get(); i++) {
+					
 					//System.out.println(i + " " + mult + "\n");
 					spectralControl.set(i, mult);
 					mult *= persistence.get();
 				}
-				spectralControl.setStartEndBand(startBand.get(), endBand.get());
+				spectralControl.setStartEndBand(startBand.get(), endBand.get());*/
 			}
 			spectralControl.setSilent(false);
 		}

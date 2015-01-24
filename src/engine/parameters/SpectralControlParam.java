@@ -5,6 +5,8 @@ import java.io.Writer;
 import java.util.Scanner;
 import java.util.Vector;
 
+import engine.base.Logger;
+
 /**
  * This param class holds the spectral weights parameters as used for controlling the addition of noises of different
  * octaves.
@@ -71,7 +73,11 @@ public final class SpectralControlParam extends AbstractParam {
 	public float get(int idx, float defaultValue) {
 		if (idx < 0) return 0.0f;
 		// we actually add default values here when accessing an invalid index
-		while (values.size() <= idx) values.add(defaultValue);
+		while (values.size() <= idx) { 
+		//	Logger.log(this,"adding default value" + defaultValue);
+			values.add(defaultValue);
+	
+		}
 		return values.get(idx);
 	}
 

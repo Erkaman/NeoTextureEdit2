@@ -198,6 +198,8 @@ public abstract class Channel extends LocalParameterManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Logger.log(c, "channel:" + sw.getBuffer().toString());
+		
 		return loadChannel(new Scanner(sw.getBuffer().toString()));
 	}
 
@@ -223,6 +225,8 @@ public abstract class Channel extends LocalParameterManager {
 	}
 
 	public static Channel loadChannel(Scanner s) {
+		
+		
 		try {
 			AbstractParam.GLOBAL_SILENT = true;
 			
@@ -246,6 +250,10 @@ public abstract class Channel extends LocalParameterManager {
 			}
 			AbstractParam.GLOBAL_SILENT = false;
 			c.parameterChanged(null);
+	
+			//Logger.log(c, "channel:" + c.getParameters());
+			
+			
 			return c;
 		} catch (InstantiationException e) {
 			e.printStackTrace();
@@ -257,5 +265,7 @@ public abstract class Channel extends LocalParameterManager {
 			AbstractParam.GLOBAL_SILENT = false;
 		}
 		return null;
+		
+		
 	}
 }

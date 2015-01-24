@@ -496,7 +496,6 @@ class OpenGLTextureRenderCanvas extends AWTGLCanvas implements Runnable, MouseLi
 			} 
 			
 			if (initialized) {
-				Logger.log(this, "rendering");
 				
 				render();
 				swapBuffers();
